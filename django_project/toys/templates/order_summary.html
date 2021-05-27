@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+</head>
+  <main style="background-color:#c0edfe; margin-top: 0;">
+    <div class="container mt-n2">
+
+    <div class="table-responsive text-nowrap">
+    <h2>Корзина</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Цена, руб</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Общая стоимость</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in object.orderitem_set.all %}
+
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ item.item.name}}</td>
+
+
+            <td>{{ item.item.price }}</td>
+            <td>
+                <a href="{% url 'toys:remove-single-item-from-cart' item.item.slug %}"><i class="fas fa-minus mr-2"></i></a>
+                {{ item.quantity }}
+                <a href="{% url 'toys:add-to-cart' item.item.slug %}"><i class="fas fa-plus ml-2"></i></a>
+            </td>
+            <td>
+            {% if item.item.discount_price %}
+                {{ item.get_total_discount_item_price }} руб
+                <span class="badge badge-primary">Экономия ${{ item.get_amount_saved }}</span>
+            {% else %}
+                {{ item.get_total_item_price }} руб
+            {% endif %}
+            <a style='color: red;' href="{% url 'toys:remove-from-cart' item.item.slug %}">
+                <i class="fas fa-trash float-right"></i>
+            </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan='5'><h5>Ваша корзина пуста</h5></td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            <a class='btn btn-primary float-right' href='/'>Продолжить покупки</a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% if object.get_total %}
+            <tr style="background-color:#DDF6FF;">
+            <td colspan="4"> <b>Итого</b></td>
+            <td><b>{{ object.get_total }} руб</b></td>
+            </tr>
+            <tr>
+            <td colspan="5">
+            <a class='btn btn-warning float-right ml-2' href='/checkout/'>Оформить заказ</a>
+            <a class='btn btn-primary float-right' href='/'>Продолжить покупки</a>
+            </td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    </div>
+
+    </div>
+  </main>
+
+{% endblock content %}

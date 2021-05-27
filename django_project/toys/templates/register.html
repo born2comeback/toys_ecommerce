@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section" style="background-color:#c0edfe; margin-top: 130px;">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group" style="margin-left: 100px; margin-right: 700px">
+                <legend class="border-bottom mb-4"><h2>Регистрация</h2></legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group" style="margin-left: 100px">
+                <button class="btn btn-outline-info" type="submit">Зарегистрироваться</button>
+            </div>
+        </form>
+        <div class="border-top pt-3" style="margin-left: 100px">
+            <small class="text-muted">
+                Уже есть аккаунт? <a class="ml-2" href="{% url 'toys:login' %}">Войти</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}

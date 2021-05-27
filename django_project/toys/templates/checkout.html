@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <main style="margin-top: 150px;" >
+    <div class="container wow fadeIn">
+      <h2 class="my-5 h2 text-center">Оформление заказа</h2>
+      <div class="row">
+        <div class="col-md-8 mb-4">
+          <div class="card">
+            <form method="POST" class="card-body">
+              {% csrf_token %}
+              <div class="row">
+                    <div class="col-md-6 mb-2">
+                          <div class="md-form ">
+                              <label for="username"><h4>Имя покупателя: </h4></label>
+                              <input id="username" type="text" name="username" class="form-control" value="{{ customer.username }}">
+                          </div>
+                    </div>
+                      <div class="col-md-6 mb-2">
+                            <div class="md-form ">
+                              <label for="email"><h4>Email: </h4></label>
+                                <input id="email" type="email" name="email" class="form-control" value="{{ customer.email }}">
+                            </div>
+                      </div>
+                      <div class="col-md-6  mb-3">
+                          <label for="phone"><h4>Телефон: </h4></label>
+                          <input id="phone" type="text" name="phone" class="form-control" value="{{ customer.phone }}">
+                      </div>
+
+                </div>
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Оформить заказ</button>
+
+            </form>
+
+          </div>
+
+        </div>
+          <div class="col-md-4 mb-4">
+            {% include "order_snippet.html" %}
+          </div>
+
+      </div>
+    </div>
+
+  </main>
+
+{% endblock content %}
+

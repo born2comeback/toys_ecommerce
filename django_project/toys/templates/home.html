@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<body style="background-color:#c0edfe; margin-top: 130px;">
+<div class="container-fluid ml-1 mr-1 pl-1 pr-1">
+            {%  for item in products  %}
+                {% if forloop.counter0|divisibleby:4 %} <div class="row text-center"> {%  endif %}
+                  <div class="col-md-3 p-0 m-0">
+                <a href="{{ item.get_absolute_url }}">
+                      <div class="card ">
+                            <div class="border border-3 rounded" style="border-width:1px !important; border-color: #c0edfe !important;">
+                              <img class="card-img-top img-fluid "  src="{{  item.image1.url }}"  alt="None">
+                                <div class="card-content" style="background-color: #feffcc">
+                                     <h5 class="card-title mb-0 " style="color: #blue">{{ item.name }}</h5>
+                                    <p class="card-text" style="color: #FD4A85; font-weight: bold">{{ item.price }} руб</p>
+                                </div><!-- card content -->
+                          </div>
+                      </div><!-- card -->
+                      </a>
+                  </div><!-- col-md-5 -->
+
+            {%  if forloop.counter|divisibleby:4 or forloop.last %}
+                </div><!-- row closing -->{%  endif %}
+            {%  endfor %}
+         </div><!-- container -->
+</body>
+
+<div class="container mt-5">
+            <div class="col-12">
+                <h1>Email Newsletter</h1>
+            </div>
+            <div class="col-12">
+                {% if email %}
+                <p>{{ email }} has been {{ action }}.</p>
+                {% endif %}
+            </div>
+        {% if form %}
+            <div class="col-12 col-md-4">
+                <form action="{% url 'email-list-signup' %}" method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                    <br>
+                    <button type="submit" class="btn btn-success">Subscribe!</button>
+                </form>
+            </div>
+        {% endif %}
+        </div>
+<div class="mt-3 text-center">
+
+
+            <a href="{% url 'toys:contact' %}">Связаться с нами</a>
+</div>
+<div class="footer-copyright py-3 mt-3 text-center" >
+    <a href="https://vk.com/vladimir.leon" target="_blank">
+<b>Вконтакте</b> <i class="fab fa-vk"> </i>
+
+    </a>
+    <br>
+      © 2019 Copyright:
+      <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+    </div>
+{% endblock content %}
