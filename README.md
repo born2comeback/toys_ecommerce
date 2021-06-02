@@ -1,7 +1,7 @@
 # toys_ecommerce
-### Simple and tested app that can be taken as a starting point for extending and building custom e-commerce site with Python/Django/PostgreSQL.
+### `Simple and tested app that can be taken as a starting point for extending and building custom e-commerce site with Python/Django/PostgreSQL.`
 
-### `Features:`
+## `Features:`
 	*	Products
 	*	Cart handling 
 	*	Accounts management 
